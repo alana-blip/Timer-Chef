@@ -1,0 +1,10 @@
+<%- include ('partials/header') %>
+
+<div class="timer-card">
+    <h2>Ops! Algo deu Errado. Erro <%= error.status || 500 %></h2>
+    <p><%= message %></p>
+    <br>
+    <a href="/" class="btn btn-primary"> Voltar para o Início</a>
+</div>
+
+<%- include ('partials/footer')%>
