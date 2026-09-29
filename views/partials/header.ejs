@@ -2,25 +2,27 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TimerChef</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
     <header class="navbar">
-  <div class="logo">👨‍🍳 TimerChef</div>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="/" class="nav-btn <%= rotaAtual === 'inicio' ? 'active' : '' %>">Início</a></li>
-      <li><a href="/salvos" class="nav-btn <%= rotaAtual === 'salvos' ? 'active' : '' %>">Salvos</a></li>
-      
-      <% if (usuarioLogado) { %>
-        <li class="user-badge">👤 <%= usuarioLogado.username %> (<a href="/logout">Sair</a>)</li>
-      <% } else { %>
-        <li><a href="/login" class="nav-btn <%= rotaAtual === 'login' ? 'active' : '' %>">Login</a></li>
-        <li><a href="/cadastro" class="nav-btn <%= rotaAtual === 'cadastro' ? 'active' : '' %>">Cadastro</a></li>
-      <% } %>
-    </ul>
-  </nav>
-</header>
-    <main class="conainer">
+      <div class="logo">👨‍🍳 TimerChef</div>
+      <nav>
+        <a href="/" class="nav-btn <%= rotaAtual === 'inicio' ? 'active' : '' %>">Início</a>
+        <span class="nav-separator">|</span>
+        <a href="/salvos" class="nav-btn <%= rotaAtual === 'salvos' ? 'active' : '' %>">Salvos</a>
+        
+        <% if (usuarioLogado) { %>
+          <span class="nav-separator">|</span>
+          <div class="user-badge">
+            👤 <%= usuarioLogado.username %> (<a href="/logout">Sair</a>)
+          </div>
+        <% } else { %>
+          <span class="nav-separator">|</span>
+          <a href="/login" class="nav-btn <%= rotaAtual === 'login' ? 'active' : '' %>">Login</a>
+          <a href="/cadastro" class="btn-cadastro <%= rotaAtual === 'cadastro' ? 'active' : '' %>">Cadastro</a>
+        <% } %>
+      </nav>
+    </header>

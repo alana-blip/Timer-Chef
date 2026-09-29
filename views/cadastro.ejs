@@ -1,26 +1,28 @@
 <%- include('partials/header') %>
 
-<div class="auth-card">
+<main>
+  <div class="card-container">
     <h2>Cadastro do Usuário</h2>
-    <p>Crie uma conta rápida para salvar e gerenciar seus cronômetros.</p>
+    <p class="subtitle">Crie uma conta rápida para salvar e gerenciar seus cronômetros.</p>
 
     <% if (erro) { %>
-        <div class="alert-error"><%= erro %></div>
+      <div class="error-msg"><%= erro %></div>
     <% } %>
-    
-    <form action="/cadastro" method="POST" class="form-conatiner">
-        <div class="form-group">
-            <label for="username">Nome de Usuário:</label>
-            <input type="text" id="username" name="username" placeholder="Digite um usuário..." required>
-        </div>
 
-        <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" placeholder="Digite uma senha..." required>
-        </div>
+    <form action="/cadastro" method="POST">
+      <div class="form-group">
+        <label for="username">Nome de Usuário:</label>
+        <input type="text" id="username" name="username" placeholder="Digite um usuário..." required>
+      </div>
 
-        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      <div class="form-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" placeholder="Digite uma senha..." required>
+      </div>
+
+      <button type="submit" class="btn">Cadastrar</button>
     </form>
-</div>
+  </div>
+</main>
 
 <%- include('partials/footer') %>

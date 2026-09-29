@@ -1,64 +1,82 @@
 <%- include('partials/header') %>
 
-<h2>Cronômetros Salvos</h2>
+<main>
+  <% if (timers.length === 0) { %>
+    <!-- TELA VAZIA: Modal centralizado -->
+    <div class="card-container">
+      <h2>Cronômetros Salvos</h2>
+      <p class="subtitle" style="margin-top: 1rem;">
+        Nenhum Cronômetro salvo até o momento.
+      </p>
+      <a href="/" class="btn" style="text-decoration: none; display: inline-block;">Criar um novo</a>
+    </div>
 
-<div class="grid-timers">
-    <% if (timers.length === 0) { %>
-        <p>Nenhum Cronômetro salvo até o momento. <a href="/">Criar um novo</a>.</p>
-    <% } else { %>
-     <% timers.forEach(timer => { %>
-      <div class="card-salvo">
-        <h3><%=timer.nome %></h3>
-        <p class="tempo">⏱️<%= String(timer.minutos).padStart(2, '0') %>:<%= String(timer.segundos).padStart(2,'0') %></p>
+  <% } else { %>
+    <!-- TELA COM TIMERS: Grade de cards -->
+    <div class="saved-timers-wrapper">
+      <h2 style="text-align: center; margin-bottom: 1.5rem;">Cronômetros Salvos</h2>
+      
+      <div class="grid-timers">
+        <% timers.forEach(timer => { %>
+          <div class="card-container card-salvo">
+            <h3><%= timer.nome %></h3>
+            
+            <p class="timer-display" style="font-size: 2.2rem; margin: 0.8rem 0;">
+              ⏱️ <%= String(timer.minutos).padStart(2, '0') %>:<%= String(timer.segundos).padStart(2, '0') %>
+            </p>
 
-        <div class="card-actions">
-            <a href="/?min=<%= timer.minutos %>&seg=<%= timer.segundos %>&nome=<%=encodeURIComponent(timer.nome) %>" class="btn btn-success" title="Usar Novamente">
-                ▶️ Usar
-            </a>
+            <!-- Ações Principais -->
+            <div class="card-actions" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.8rem;">
+              <a href="/?min=<%= timer.minutos %>&seg=<%= timer.segundos %>&nome=<%= encodeURIComponent(timer.nome) %>" class="btn btn-secondary" style="text-decoration: none; width: auto; font-size: 0.9rem; padding: 0.5rem 0.8rem;" title="Usar Novamente">
+                ▶️️ Usar
+              </a>
 
-            <button class="btn btn-warning" onclick="toggleEdit('<%=timer._id%>')">
+              <button class="btn" style="width: auto; font-size: 0.9rem; padding: 0.5rem 0.8rem;" onclick="toggleEdit('<%= timer._id %>')">
                 ✏️ Editar
-            </button>
+              </button>
 
-            <form action="/salvos/deletar/<%= timer._id %>" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-danger" onclick="return confirm('Deseja realmente apagar este cronômetro?')">
-                    🗑️ Apagar
+              <form action="/salvos/deletar/<%= timer._id %>" method="POST" style="display: inline;">
+                <button type="submit" class="btn" style="width: auto; font-size: 0.9rem; padding: 0.5rem 0.8rem; background-color: #d9534f;" onclick="return confirm('Deseja realmente apagar este cronômetro?')">
+                  🗑️ Apagar
                 </button>
-            </form>
-        </div>
+              </form>
+            </div>
 
-        <div class="edit-panel" id="edit-panel-<%= timer._id %>" style="display: none;">
-            <form action="/salvos/editar/<%= timer._id %>" method="POST" class="form-container">
+            <!-- Painel de Edição -->
+            <div class="edit-panel" id="edit-panel-<%= timer._id %>" style="display: none; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 0.8rem;">
+              <form action="/salvos/editar/<%= timer._id %>" method="POST">
                 <div class="form-group">
-                    <label>Novo Nome:</label>
-                    <input type="text" name="nome" value="<%= timer.nome %>" required>
+                  <label>Novo Nome:</label>
+                  <input type="text" name="nome" value="<%= timer.nome %>" required>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Minutos:</label>
-                        <input type="number" name="minutos" value="<%= timer.minutos %>" min="0" required>
-                    </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <div class="form-group" style="flex: 1;">
+                    <label>Minutos:</label>
+                    <input type="number" name="minutos" value="<%= timer.minutos %>" min="0" required>
+                  </div>
 
-                    <div class="form-group">
-                        <label>Segundos:</label>
-                        <input type="number" name="segundos" value="<%= timer.segundos %>" min="0" max="59" required>
-                    </div>
+                  <div class="form-group" style="flex: 1;">
+                    <label>Segundos:</label>
+                    <input type="number" name="segundos" value="<%= timer.segundos %>" min="0" max="59" required>
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem">Salvar Alterações</button>
-            </form>
-        </div>
-      </div>
+
+                <button type="submit" class="btn" style="margin-top: 0.5rem;">Salvar Alterações</button>
+              </form>
+            </div>
+          </div>
         <% }); %>
-       <% } %>
-</div>
+      </div>
+    </div>
+  <% } %>
+</main>
 
-    <script>
-    function tooggleEdit(id) {
-        const panel = document.getElementById(`edit-panel-${id}`);
-        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-    }
-    </script>
+<script>
+  function toggleEdit(id) {
+    const panel = document.getElementById(`edit-panel-${id}`);
+    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
 
 <%- include('partials/footer') %>
-
