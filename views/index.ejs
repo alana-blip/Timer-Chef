@@ -1,22 +1,28 @@
-<%- include ('partials/header') %>
+<%- include('partials/header') %>
 
-<div class="timer-card">
+<main>
+  <div class="egg-timer-wrapper">
     <h2 id="timer-title"><%= timerAtivo.nome %></h2>
 
-    <div class="display" id="timer-display">00:00</div>
+    <div class="egg-timer-body">
+      <div class="egg-yolk-top"></div>
 
-    <div class="time-input-box">
+      <div class="timer-display" id="timer-display">00:00</div>
+
+      <div class="timer-inputs">
         <input type="number" id="input-min" placeholder="Min" min="0" max="180" value="<%= timerAtivo.minutos %>">
-        <span>:</span>
+        <span class="colon">:</span>
         <input type="number" id="input-seg" placeholder="Seg" min="0" max="59" value="<%= timerAtivo.segundos %>">
+      </div>
     </div>
 
-    <div class="controls">
-        <button id="btn-start" class="btn btn-primary">Iniciar</button>
-        <button id="btn-pause" class="btn btn-warning" disabled>Pausar</button>
-        <button id="btn-reset" class="btn btn-danger">Resetar</button>
+    <div class="timer-actions">
+      <button id="btn-start" class="btn btn-start">Iniciar</button>
+      <button id="btn-pause" class="btn btn-pause" disabled>Pausar</button>
+      <button id="btn-reset" class="btn btn-reset">Resetar</button>
     </div>
-</div>
+  </div>
+</main>
 
 <form id="from-finalizar" action="/finalizar-timer" method="POST" style="display:none;">
     <input type="hidden" name="minutos" id="final-min">
@@ -25,4 +31,4 @@
 
 <script src="/javascripts/timer.js"></script>
 
-<%- include ('partials/footer') %>
+<%- include('partials/footer') %>
