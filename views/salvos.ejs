@@ -2,7 +2,6 @@
 
 <main>
   <% if (timers.length === 0) { %>
-    <!-- TELA VAZIA: Modal centralizado -->
     <div class="card-container">
       <h2>Cronômetros Salvos</h2>
       <p class="subtitle" style="margin-top: 1rem;">
@@ -12,7 +11,6 @@
     </div>
 
   <% } else { %>
-    <!-- TELA COM TIMERS: Grade de cards -->
     <div class="saved-timers-wrapper">
       <h2 style="text-align: center; margin-bottom: 1.5rem;">Cronômetros Salvos</h2>
       
@@ -25,7 +23,6 @@
               ⏱️ <%= String(timer.minutos).padStart(2, '0') %>:<%= String(timer.segundos).padStart(2, '0') %>
             </p>
 
-            <!-- Ações Principais -->
             <div class="card-actions" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.8rem;">
               <a href="/?min=<%= timer.minutos %>&seg=<%= timer.segundos %>&nome=<%= encodeURIComponent(timer.nome) %>" class="btn btn-secondary" style="text-decoration: none; width: auto; font-size: 0.9rem; padding: 0.5rem 0.8rem;" title="Usar Novamente">
                 ▶️️ Usar
@@ -42,7 +39,6 @@
               </form>
             </div>
 
-            <!-- Painel de Edição -->
             <div class="edit-panel" id="edit-panel-<%= timer._id %>" style="display: none; border-top: 1px solid var(--border-color); padding-top: 1rem; margin-top: 0.8rem;">
               <form action="/salvos/editar/<%= timer._id %>" method="POST">
                 <div class="form-group">
